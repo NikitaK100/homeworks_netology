@@ -1,23 +1,34 @@
+from django.http import HttpResponse
 from django.shortcuts import render
+from django import template
+
 
 DATA = {
     'omlet': {
         'яйца, шт': 2,
         'молоко, л': 0.1,
         'соль, ч.л.': 0.5,
-    },
+        },
     'pasta': {
         'макароны, г': 0.3,
         'сыр, г': 0.05,
-    },
+        },
     'buter': {
         'хлеб, ломтик': 1,
         'колбаса, ломтик': 1,
         'сыр, ломтик': 1,
         'помидор, ломтик': 1,
-    },
+        },
+    'tort' :{
+        'бисквит, шт': 3, 
+        'крем, мл': 0.3,
+        'клубника, шт': 5
+        }
+    }
+
+
     # можете добавить свои рецепты ;)
-}
+
 
 # Напишите ваш обработчик. Используйте DATA как источник данных
 # Результат - render(request, 'calculator/index.html', context)
@@ -28,3 +39,17 @@ DATA = {
 #     'ингредиент2': количество2,
 #   }
 # }
+
+
+def recipes(request, recipe):
+    try:
+        template_name = 'calculator/index.html'
+        get_servings = int(request.GET.get('servings', 1))
+        servings = {key: value * get_servings for key, value in DATA[recipe].items()}
+        context = {
+            'recipe': servings,
+            }
+        return render(request, context=context, template_name=template_name)
+    except:
+        return render(request, context={'recipe': []}, template_name=template_name)
+
