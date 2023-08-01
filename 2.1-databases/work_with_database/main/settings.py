@@ -56,6 +56,7 @@ DATABASES = {
         'PORT': '5432',
         'USER': 'postgres',
         'PASSWORD': 'ваш пароль',
+        'PASSWORD': '5833685',
     }
 }
 
