@@ -11,12 +11,12 @@
             <h2 style="color:#007bff">{{ book.name }}</h2>
             <p>{{ book.author }}</p>
             <p>Дата публикации: {{ book.pub_date|date:'Y-m-d' }}</p>
-            {% if not prev is None %}
-                <a class="button button-primary" href="{% url 'date' prev|date:'Y-m-d' %}"><-{{ prev|date:'Y-m-d' }}</a>
+            {% if not previous_page is None %}
+                <a class="button button-primary" href="{% url 'date' previous_page.pub_date|date:'Y-m-d' %}"><{{ previous_page.pub_date|date:'Y-m-d' }}</a>
             {% endif %}
-            <a class="button disabled" href=""></a>
-            {% if not next is None %}
-                <a class="button button-primary" href="{% url 'date' next|date:'Y-m-d' %}">{{ next|date:'Y-m-d' }}-></a>
+            <a class="button disabled" href="">|</a>
+            {% if not next_page is None %}
+                <a class="button button-primary" href="{% url 'date' next_page.pub_date|date:'Y-m-d' %}">{{ next_page.pub_date|date:'Y-m-d' }}></a>
             {% endif %}
         </div>
     </div>
